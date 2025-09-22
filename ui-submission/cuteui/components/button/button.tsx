@@ -3,8 +3,8 @@ import Image from 'next/image';
 import React from 'react';
 
 import { cn } from '@/cuteui/lib/cn';
-import GreenCommonIcon from '@public/components/selectedCommonIcon.svg';
-import WhiteCommonIcon from '@public/components/whiteIcon.svg';
+import GreenCommonIcon from '../../../public/components/selectedCommonIcon.svg';
+import WhiteCommonIcon from '../../../public/components/whiteIcon.svg';
 
 interface ButtonProps {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -55,7 +55,7 @@ const buttonStyles = {
     auth: 'text-text-primary hover:bg-[#FAFAFA] border-[1px] dark:border-black',
   },
   color: {
-    primary: 'text-text-hint',
+    primary: 'text-primary',
     secondary: 'text-primary-main',
     success: 'bg-success text-text-hint',
     error: 'bg-error text-text-hint',

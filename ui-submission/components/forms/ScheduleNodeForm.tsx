@@ -1,79 +1,80 @@
 "use client";
 
 import React, { useState } from "react";
+import { TextField } from "@/cuteui/components/textfield";
+import CustomSelect from "@/cuteui/components/custom-select";
+import { Button } from "@/cuteui/components/button/button";
 
 interface ScheduleNodeFormProps {
-  onSubmit: (data: { scheduleName: string; date: string; time: string; repeat: string }) => void;
+    onSubmit: (data: { scheduleName: string; date: string; time: string; repeat: string }) => void;
 }
 
 export default function ScheduleNodeForm({ onSubmit }: ScheduleNodeFormProps) {
-  const [form, setForm] = useState({
-    scheduleName: "",
-    date: "",
-    time: "09:00",
-    repeat: "none",
-  });
+    const [form, setForm] = useState({
+        scheduleName: "",
+        date: "",
+        time: "09:00",
+        repeat: "none",
+    });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(form);
-  };
+    const handleSave = () => {
+        if (!form.scheduleName.trim()) return;
+        onSubmit(form);
+    };
 
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 h-full p-4">
-      <h2 className="text-lg font-semibold">Add Schedule</h2>
+    return (
+        <div className="flex flex-col h-full">
+            <div className="flex-1 space-y-4 overflow-y-auto p-2">
+                <h2 className="text-lg font-semibold">Add Schedule</h2>
 
-      <label className="flex flex-col text-sm">
-        Schedule Name
-        <input
-          type="text"
-          value={form.scheduleName}
-          onChange={(e) => setForm({ ...form, scheduleName: e.target.value })}
-          className="border rounded p-2"
-          placeholder="e.g., Launch Reminder"
-        />
-      </label>
+                <TextField
+                    required
+                    labelName="Schedule Name"
+                    placeholder="e.g., Launch Reminder"
+                    value={form.scheduleName}
+                    onChange={(e) => setForm({ ...form, scheduleName: e.target.value })}
+                    className="w-full border rounded p-2"
+                />
 
-      <label className="flex flex-col text-sm">
-        Date
-        <input
-          type="date"
-          value={form.date}
-          onChange={(e) => setForm({ ...form, date: e.target.value })}
-          className="border rounded p-2"
-        />
-      </label>
+                <TextField
+                    required
+                    type="date"
+                    labelName="Date"
+                    value={form.date}
+                    onChange={(e) => setForm({ ...form, date: e.target.value })}
+                    className="w-full border rounded p-2"
+                />
 
-      <label className="flex flex-col text-sm">
-        Time
-        <input
-          type="time"
-          value={form.time}
-          onChange={(e) => setForm({ ...form, time: e.target.value })}
-          className="border rounded p-2"
-        />
-      </label>
+                <TextField
+                    required
+                    type="time"
+                    labelName="Time"
+                    value={form.time}
+                    onChange={(e) => setForm({ ...form, time: e.target.value })}
+                    className="w-full border rounded p-2"
+                />
 
-      <label className="flex flex-col text-sm">
-        Repeat
-        <select
-          value={form.repeat}
-          onChange={(e) => setForm({ ...form, repeat: e.target.value })}
-          className="border rounded p-2"
-        >
-          <option value="none">None</option>
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-        </select>
-      </label>
+                <CustomSelect
+                    labelName="Repeat"
+                    value={form.repeat}
+                    onChange={(e) => setForm({ ...form, repeat: e.target.value })}
+                    options={[
+                        { value: "none", label: "None" },
+                        { value: "daily", label: "Daily" },
+                        { value: "weekly", label: "Weekly" },
+                        { value: "monthly", label: "Monthly" },
+                    ]}
+                    placeholder="Select repeat"
+                    showPlaceholderInMenu
+                    size="md"
+                />
+            </div>
 
-      <button
-        type="submit"
-        className="mt-auto bg-primary text-white rounded px-4 py-2 hover:bg-primary/80"
-      >
-        Save
-      </button>
-    </form>
-  );
+            <div className="p-4 border-t flex justify-end">
+                <Button onClick={handleSave} color="primary">
+                    Save
+                </Button>
+            </div>
+        </div>
+    );
 }

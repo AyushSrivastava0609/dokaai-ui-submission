@@ -3,21 +3,18 @@ import { useState } from "react";
 import { useWorkflow } from "@/context/workflowContext";
 import { TextField } from "@/cuteui/components/textfield";
 import { TextArea } from "@/cuteui/components/textarea";
-import CustomSelect from "@/cuteui/components/custom-select";
 import { Button } from "@/cuteui/components/button/button";
 
-export default function StartNodeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
+export default function EndNodeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
     const [form, setForm] = useState({
         name: "",
-        description: "",
-        tag: "",
-        notificationType: "",
+        description: ""
     });
 
     const { setWorkflowName } = useWorkflow();
 
     const handleSave = () => {
-        if (!form.name.trim()) return; // simple validation
+        if (!form.name.trim()) return;
         setWorkflowName(form.name);
         onSubmit(form);
     };
@@ -41,34 +38,6 @@ export default function StartNodeForm({ onSubmit }: { onSubmit: (data: any) => v
                     onChange={(e) => setForm({ ...form, description: e.target.value })}
                     className="w-full border rounded p-2"
                 />
-                <CustomSelect
-                    labelName="Tag"
-                    value={form.tag}
-                    onChange={(e) => setForm({ ...form, tag: e.target.value })}
-                    options={[
-                        { value: 'Marketing', label: 'Marketing' },
-                        { value: 'Sales', label: 'Sales' },
-                        { value: 'Design', label: 'Design' },
-                    ]}
-                    placeholder="Tag"
-                    showPlaceholderInMenu
-                    size="md"
-                />
-
-                <CustomSelect
-                    labelName="Notification Type"
-                    value={form.notificationType}
-                    onChange={(e) => setForm({ ...form, notificationType: e.target.value })}
-                    options={[
-                        { value: 'Email', label: 'Email' },
-                        { value: 'SMS', label: 'SMS' },
-                        { value: 'Push', label: 'Push Notification' },
-                    ]}
-                    placeholder="Notification Type"
-                    showPlaceholderInMenu
-                    size="md"
-                />
-
             </div>
             <div className="p-4 border-t flex justify-end">
                 <Button

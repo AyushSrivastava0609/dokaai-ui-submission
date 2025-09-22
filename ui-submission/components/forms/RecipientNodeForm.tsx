@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/cuteui/components/button/button";
 import CustomSelect from "@/cuteui/components/custom-select";
 import SearchDropdown from "@/cuteui/components/dropDownSearch";
 import { RadioButton } from "@/cuteui/components/radio";
@@ -19,7 +20,7 @@ export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) 
     return (
         <div className="flex flex-col h-full">
             <div className="flex-1 space-y-4 overflow-y-auto p-4">
-                {/* Customer Pool Dropdown */}
+
                 <div>
                     <CustomSelect
                         labelName="Customer Pool"
@@ -36,7 +37,6 @@ export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) 
                     />
                 </div>
 
-                {/* Selection Type Radio Buttons */}
                 <div>
                     <RadioButton
                         label="Selection Type"
@@ -52,7 +52,6 @@ export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) 
 
                 </div>
 
-                {/* Target Audience Search Field */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Target Audience</label>
                     <div className="relative mt-2">
@@ -63,7 +62,7 @@ export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) 
                                 "Founders",
                                 "Freelancers",
                                 "Enterprises",
-                            ]} // ✅ replace with your actual audience options
+                            ]}
                             setSelectedItem={(item) => setForm({ ...form, targetAudience: item })}
                             dropdownTitle={form.targetAudience || "Select Audience"}
                             isSearchEnabled={true}
@@ -77,14 +76,14 @@ export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) 
                 </div>
             </div>
 
-            {/* Save Button */}
             <div className="p-4 border-t flex justify-end">
-                <button
+                <Button
                     onClick={handleSave}
-                    className="px-4 py-2 bg-emerald-600 text-white rounded-lg shadow hover:bg-emerald-700"
+                    color="primary"
+                    variant="contained"
                 >
                     Save
-                </button>
+                </Button>
             </div>
         </div >
     );

@@ -8,30 +8,42 @@ import ReactFlow, {
     applyEdgeChanges,
     NodeChange,
     EdgeChange,
-    Connection,
-    Edge
+    Connection
 } from "reactflow";
 
 import "reactflow/dist/style.css";
-import StartNode from "../nodes/StartNode";
-import { useWorkflow } from "@/context/workflowContext";
-import NodePalette from "./nodepalette";
-import StartNodeForm from "../forms/StartNodeForm";
-import Sidebar from "./sidebar";
 import { Zap } from "lucide-react";
-import RecipientNodeForm from "../forms/RecipientNodeForm";
+
+// Import all node components
+import StartNode from "../nodes/StartNode";
 import RecipientNode from "../nodes/RecipientsNode";
 import BinaryConditionNode from "../nodes/BinaryConditionsNode";
-import BinaryConditionForm from "../forms/BinaryConditionForm";
-import MultipleConditionForm from "../forms/MultipleConditionForm";
 import MultipleConditionNode from "../nodes/MultipleConditionsNode";
 import DelaysNode from "../nodes/DelaysNode";
+import DigestNode from "../nodes/DigestNodes";
+import ScheduleNode from "../nodes/ScheduleNode";
+import ChannelRouterNode from "../nodes/ChannelRouterNode";
+import IndividualChannelNode from "../nodes/IndividualChannelNode";
+import EndNode from "../nodes/EndNode";
+
+// Import all corresponding forms for sidebar
+import StartNodeForm from "../forms/StartNodeForm";
+import RecipientNodeForm from "../forms/RecipientNodeForm";
+import BinaryConditionForm from "../forms/BinaryConditionForm";
+import MultipleConditionForm from "../forms/MultipleConditionForm";
 import DelaysNodeForm from "../forms/DelaysNodeForm";
 import DigestNodeForm from "../forms/DigestNodeForm";
-import DigestNode from "../nodes/DigestNodes";
 import ScheduleNodeForm from "../forms/ScheduleNodeForm";
-import ScheduleNode from "../nodes/ScheduleNode";
+import ChannelRouterForm from "../forms/ChannelRouterNodeForm";
+import IndividualChannelForm from "../forms/IndividualChannelNodeForm";
+import EndNodeForm from "../forms/EndNodeForm";
 
+// Utility components
+import NodePalette from "./nodepalette";
+import Sidebar from "./sidebar";
+import { useWorkflow } from "@/context/workflowContext";
+
+// Map node type → ReactFlow node component
 const nodeTypes = {
     startNode: StartNode,
     recipientNode: RecipientNode,
@@ -39,10 +51,28 @@ const nodeTypes = {
     multipleConditionNode: MultipleConditionNode,
     delayNode: DelaysNode,
     digestNode: DigestNode,
-    scheduleNode: ScheduleNode 
+    scheduleNode: ScheduleNode,
+    channelRouterNode: ChannelRouterNode,
+    individualChannelNode: IndividualChannelNode,
+    endNode: EndNode
+};
+
+// Map node type → form component for sidebar
+const formsMap: Record<string, React.FC<any>> = {
+    startNode: StartNodeForm,
+    recipientNode: RecipientNodeForm,
+    binaryConditionNode: BinaryConditionForm,
+    multipleConditionNode: MultipleConditionForm,
+    delayNode: DelaysNodeForm,
+    digestNode: DigestNodeForm,
+    scheduleNode: ScheduleNodeForm,
+    channelRouterNode: ChannelRouterForm,
+    individualChannelNode: IndividualChannelForm,
+    endNode: EndNodeForm
 };
 
 export default function WorkflowCanvas() {
+    // Get workflow state and actions from context
     const {
         nodes,
         edges,
@@ -54,77 +84,95 @@ export default function WorkflowCanvas() {
         setActiveNodeType,
         addStartNode,
         addRecipientNode,
-        addBinaryConditionNode, 
+        addBinaryConditionNode,
         addMultipleConditionNode,
         addDelayNode,
         addDigestNode,
-        addScheduleNode
+        addScheduleNode,
+        addChannelRouterNode,
+        addIndividualChannelNode,
+        addEndNode
     } = useWorkflow();
 
+    // ReactFlow node changes handler
     const onNodesChange = (changes: NodeChange[]) =>
-        setNodes((nds) => applyNodeChanges(changes, nds));
+        setNodes(nds => applyNodeChanges(changes, nds));
 
+    // ReactFlow edge changes handler
     const onEdgesChange = (changes: EdgeChange[]) =>
-        setEdges((eds) => applyEdgeChanges(changes, eds));
+        setEdges(eds => applyEdgeChanges(changes, eds));
 
+    // ReactFlow connection handler (when user draws edges)
     const onConnect = (connection: Connection) =>
-        setEdges((eds: Edge[]) => [
-          ...eds,
-          {
-            id: `${connection.source ?? "unknown"}-${connection.target ?? "unknown"}`,
-            source: connection.source ?? "",
-            target: connection.target ?? "",
-            sourceHandle: connection.sourceHandle,
-            targetHandle: connection.targetHandle,
-            // type: connection.type || "default",
-          },
+        setEdges(eds => [
+            ...eds,
+            {
+                id: `${connection.source}-${connection.target}`, // unique edge ID
+                source: connection.source!,
+                target: connection.target!,
+                sourceHandle: connection.sourceHandle,
+                targetHandle: connection.targetHandle
+            },
         ]);
+
+    // Map node type → corresponding addNode function
+    const addNodeMap: Record<string, Function> = {
+        startNode: addStartNode,
+        recipientNode: addRecipientNode,
+        binaryConditionNode: addBinaryConditionNode,
+        multipleConditionNode: addMultipleConditionNode,
+        delayNode: addDelayNode,
+        digestNode: addDigestNode,
+        scheduleNode: addScheduleNode,
+        channelRouterNode: addChannelRouterNode,
+        individualChannelNode: addIndividualChannelNode,
+        endNode: addEndNode
+    };
+
+    // Dynamically get the form component and addNode function based on activeNodeType
+    const ActiveForm = activeNodeType ? formsMap[activeNodeType] : null;
+    const addNodeFn = activeNodeType ? addNodeMap[activeNodeType] : undefined;
+
     return (
         <div className="w-full h-full relative">
-            {/* If start node not created → show Start button */}
+            {/* Overlay "Click to Start" button if start node not created */}
             {!startNodeCreated && (
-                <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10 ">
+                <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10">
                     <button
                         onClick={() => {
-                            setActiveNodeType("startNode");
+                            setActiveNodeType("startNode"); // open start node form
                             setSidebarOpen(true);
-                            console.log(activeNodeType);
                         }}
                         className="px-8 py-4 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 transition flex items-center gap-2 border-2 border-gray-300"
                     >
-                        <Zap className="h-5 w-5" /> 
-                        Click to Start
+                        <Zap className="h-5 w-5" /> Click to Start
                     </button>
                 </div>
             )}
 
-            <NodePalette disabled={!startNodeCreated}/>
+            {/* Node palette on the left */}
+            <NodePalette disabled={!startNodeCreated} />
 
-            {/* React Flow Canvas */}
+            {/* ReactFlow canvas */}
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
-                nodeTypes={nodeTypes}
+                nodeTypes={nodeTypes} // use custom node components
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 fitView
             >
-                <Background />
-                <Controls position="top-right" />
+                <Background /> {/* Grid background */}
+                <Controls position="top-right" /> {/* Zoom/pan controls */}
             </ReactFlow>
 
-            {/* Sidebar with forms */}
+            {/* Sidebar renders form dynamically based on activeNodeType */}
             <Sidebar>
-            {activeNodeType === 'startNode' && <StartNodeForm onSubmit={addStartNode} />}
-            {activeNodeType === 'recipientNode' && <RecipientNodeForm onSubmit={addRecipientNode} />}
-            {activeNodeType === 'binaryConditionNode' && <BinaryConditionForm onSubmit={addBinaryConditionNode} />}
-            {activeNodeType === 'multipleConditionNode' && <MultipleConditionForm onSubmit={addMultipleConditionNode} />}
-            {activeNodeType === 'delayNode' && <DelaysNodeForm onSubmit={addDelayNode} />}
-            {activeNodeType === 'digestNode' && <DigestNodeForm onSubmit={addDigestNode} />}
-            {activeNodeType === 'scheduleNode' && <ScheduleNodeForm onSubmit={addScheduleNode} />}
+                {ActiveForm && addNodeFn && (
+                    <ActiveForm onSubmit={addNodeFn} />
+                )}
             </Sidebar>
         </div>
     );
 }
-        
