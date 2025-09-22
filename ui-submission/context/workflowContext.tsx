@@ -63,7 +63,6 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
         setStartNodeCreated(true); // Mark start node as created
         setSidebarOpen(false); // Close sidebar after adding
         setActiveNodeType(null); // Reset active form
-        console.log("Nodes:", nodes, "Edges:", edges); // Debug log
     };
 
     /** Add a recipient node. Positions dynamically based on existing nodes */
@@ -116,7 +115,6 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
         setNodes(nds => [...nds, newNode]);
         setSidebarOpen(false);
         setActiveNodeType(null);
-        console.log("Delay Node Added:", newNode);
     };
 
     /** Add a digest node */
