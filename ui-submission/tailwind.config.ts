@@ -29,10 +29,6 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--popover))',
   				foreground: 'hsl(var(--popover-foreground))'
   			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
@@ -58,7 +54,8 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			primary: '#389F7F'
   		}
   	}
   },

@@ -5,7 +5,7 @@ import React from 'react';
 
 import Loader from '@/cuteui/components/loader';
 import { cn } from '@/cuteui/lib/cn';
-import SearchIcon from '@public/components/search.svg';
+import SearchIcon from '../../../public/components/search.svg';
 
 interface SearchBarProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

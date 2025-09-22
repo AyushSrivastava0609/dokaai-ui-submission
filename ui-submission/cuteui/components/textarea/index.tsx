@@ -36,7 +36,7 @@ export const TextArea = ({
 }: TextAreaProps) => {
   return (
     <div>
-      <InputLabel htmlFor={labelName} className="mb-3 self-start">
+      <InputLabel htmlFor={labelName} className="mb-2 self-start">
         <Typography className={cn('text-text-primary bodyRegular', labelClassName)}>
           {labelName}
           {required && <span className="text-red-500"> *</span>}

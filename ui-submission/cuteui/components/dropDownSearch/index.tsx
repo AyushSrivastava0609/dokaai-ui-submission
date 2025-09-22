@@ -1,10 +1,10 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Search } from '@/cuteui/components/searchbar';
 import { cn } from '@/cuteui/lib/cn';
-import dropdownIcon from '@public/dashboard/dropdown.svg';
+import dropdownIcon from '../../../public/dashboard/dropdown.svg';
 
 interface SearchBarProps {
   list: string[];
