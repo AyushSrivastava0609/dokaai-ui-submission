@@ -7,8 +7,8 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
 
     return (
         <div
-            className={`fixed top-20 border border-gray-300 rounded-xl left-0 h-full w-96 bg-white shadow-xl transform transition-transform duration-300 z-50  h-[calc(100%_-_88px)]
-        ${sidebarOpen ? "translate-x-2" : "-translate-x-full"}`}
+        className={`fixed top-20 bottom-1 left-0 w-96 border border-gray-300 rounded-xl bg-white shadow-xl transform transition-transform duration-300 z-50
+            ${sidebarOpen ? "translate-x-2" : "-translate-x-full"}`}
         >
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b">
