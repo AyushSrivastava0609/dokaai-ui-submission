@@ -4,7 +4,6 @@ import WorkflowCanvas from "@/components/workflow/WorkflowCanvas";
 import WorkflowHeader from "@/components/workflow/WorkflowHeader";
 import { WorkflowProvider } from "@/context/workflowContext";
 
-
 export default function WorkflowPage() {
   return (
     <WorkflowProvider>
