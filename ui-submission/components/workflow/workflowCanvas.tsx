@@ -40,8 +40,8 @@ import EndNodeForm from "../forms/EndNodeForm";
 
 // Utility components
 import { useWorkflow } from "@/context/workflowContext";
-import NodePalette from "./NodePalette";
 import Sidebar from "./Sidebar";
+import NodePalette from "./NodePalette";
 
 // Map node type → ReactFlow node component
 const nodeTypes = {
