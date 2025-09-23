@@ -3,6 +3,19 @@
 import React, { createContext, useContext, useState } from "react";
 import { Node, Edge } from "reactflow";
 
+import {
+    BinaryConditionNodeData,
+    ChannelNodeData,
+    ChannelRouterNodeData,
+    DelayNodeData,
+    DigestNodeData,
+    EndNodeData,
+    MultipleConditionNodeData,
+    RecipientNodeData,
+    ScheduleNodeData,
+    StartNodeData
+} from "@/types";
+
 /**
  * Context type definition for workflow state & actions
  * This includes all nodes, edges, active node type, sidebar state, and functions to add nodes
@@ -10,6 +23,7 @@ import { Node, Edge } from "reactflow";
 interface WorkflowContextType {
     nodes: Node[]; // All nodes in the ReactFlow canvas
     edges: Edge[]; // All edges/connections in the canvas
+
     setNodes: React.Dispatch<React.SetStateAction<Node[]>>; // Function to update nodes
     setEdges: React.Dispatch<React.SetStateAction<Edge[]>>; // Function to update edges
     workflowName: string; // Name of the workflow
@@ -19,17 +33,18 @@ interface WorkflowContextType {
     activeNodeType: string | null; // Currently active node type (for sidebar form)
     setActiveNodeType: (type: string | null) => void; // Set active node type
     startNodeCreated: boolean; // Whether a start node has been added
+
     // Functions to add various types of nodes
-    addStartNode: (data: { name: string; description: string; tag: string; notificationType: string }) => void;
-    addRecipientNode: (data: { customerPool: string; selectionType: string; targetAudience: string }) => void;
-    addBinaryConditionNode: (data: { conditionName: string; property: string; operator: string; value: string }) => void;
-    addMultipleConditionNode: (data: { conditionName: string; rules: { id: string; property: string; operator: string; value: string }[] }) => void;
-    addDelayNode: (data: { delayName: string; duration: string; unit: string }) => void;
-    addDigestNode: (data: { digestName: string; frequency: string; time: string }) => void;
-    addScheduleNode: (data: { scheduleName: string; date: string; time: string; repeat: string }) => void;
-    addChannelRouterNode: (data: { routerName: string; channels: string[] }) => void;
-    addIndividualChannelNode: (data: { channelName: string; channelType: string; description?: string }) => void;
-    addEndNode: (data: { name: string; description: string }) => void;
+    addStartNode: (data: StartNodeData) => void;
+    addRecipientNode: (data: RecipientNodeData) => void;
+    addBinaryConditionNode: (data: BinaryConditionNodeData) => void;
+    addMultipleConditionNode: (data: MultipleConditionNodeData) => void;
+    addDelayNode: (data: DelayNodeData) => void;
+    addDigestNode: (data: DigestNodeData) => void;
+    addScheduleNode: (data: ScheduleNodeData) => void;
+    addChannelRouterNode: (data: ChannelRouterNodeData) => void;
+    addIndividualChannelNode: (data: ChannelNodeData) => void;
+    addEndNode: (data: EndNodeData) => void;
 }
 
 // Create React context for workflow. Undefined initially.
@@ -51,7 +66,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     // ----------------------
 
     /** Add the start node. Only one allowed in workflow. */
-    const addStartNode = (data: { name: string; description: string; tag: string; notificationType: string }) => {
+    const addStartNode = (data: StartNodeData) => {
         const newNode: Node = {
             id: "start-1", // Fixed ID since only one start node
             type: "startNode",
@@ -66,7 +81,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add a recipient node. Positions dynamically based on existing nodes */
-    const addRecipientNode = (data: { customerPool: string; selectionType: string; targetAudience: string }) => {
+    const addRecipientNode = (data: RecipientNodeData) => {
         const newNode: Node = {
             id: `recipient-${nodes.length + 1}`, // Unique ID
             type: "recipientNode",
@@ -79,7 +94,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add a binary condition node */
-    const addBinaryConditionNode = (data: { conditionName: string; property: string; operator: string; value: string }) => {
+    const addBinaryConditionNode = (data: BinaryConditionNodeData) => {
         const newNode: Node = {
             id: `condition-${Date.now()}`, // Unique ID based on timestamp
             type: "binaryConditionNode",
@@ -92,7 +107,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add a multiple condition node */
-    const addMultipleConditionNode = (data: { conditionName: string; rules: { id: string; property: string; operator: string; value: string }[] }) => {
+    const addMultipleConditionNode = (data: MultipleConditionNodeData) => {
         const newNode: Node = {
             id: `multi-condition-${Date.now()}`,
             type: "multipleConditionNode",
@@ -105,7 +120,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add a delay node */
-    const addDelayNode = (data: { delayName: string; duration: string; unit: string }) => {
+    const addDelayNode = (data: DelayNodeData) => {
         const newNode: Node = {
             id: `delay-${Date.now()}`,
             type: "delayNode",
@@ -118,7 +133,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add a digest node */
-    const addDigestNode = (data: { digestName: string; frequency: string; time: string }) => {
+    const addDigestNode = (data: DigestNodeData) => {
         const newNode: Node = {
             id: `digest-${Date.now()}`,
             type: "digestNode",
@@ -131,7 +146,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add a schedule node */
-    const addScheduleNode = (data: { scheduleName: string; date: string; time: string; repeat: string }) => {
+    const addScheduleNode = (data: ScheduleNodeData) => {
         const newNode: Node = {
             id: `schedule-${Date.now()}`,
             type: "scheduleNode",
@@ -144,7 +159,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add a channel router node */
-    const addChannelRouterNode = (data: { routerName: string; channels: string[] }) => {
+    const addChannelRouterNode = (data: ChannelRouterNodeData) => {
         const newNode: Node = {
             id: `channel-router-${Date.now()}`,
             type: "channelRouterNode",
@@ -157,7 +172,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add an individual channel node */
-    const addIndividualChannelNode = (data: { channelName: string; channelType: string; description?: string }) => {
+    const addIndividualChannelNode = (data: ChannelNodeData) => {
         const newNode: Node = {
             id: `individual-channel-${Date.now()}`,
             type: "individualChannelNode",
@@ -170,7 +185,7 @@ export const WorkflowProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     /** Add an end node (workflow completion) */
-    const addEndNode = (data: { name: string; description: string }) => {
+    const addEndNode = (data: EndNodeData) => {
         const newNode: Node = {
             id: "end-1", // Only one end node
             type: "endNode",

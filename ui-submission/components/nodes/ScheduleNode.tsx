@@ -2,14 +2,10 @@
 
 import { Handle, Position } from "reactflow";
 import { Calendar } from "lucide-react";
+import { ScheduleNodeData } from "@/types";
 
 interface ScheduleNodeProps {
-    data: {
-        scheduleName: string;
-        date: string;
-        time: string;
-        repeat: string;
-    };
+    data: ScheduleNodeData
 }
 
 export default function ScheduleNode({ data }: ScheduleNodeProps) {

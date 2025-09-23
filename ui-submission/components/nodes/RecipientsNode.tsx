@@ -1,8 +1,13 @@
 "use client";
 import { Handle, Position } from "reactflow";
 import { Mail } from "lucide-react";
+import { RecipientNodeData } from "@/types";
 
-export default function RecipientNode({ data }: any) {
+interface RecipientsNodeProps {
+    data: RecipientNodeData
+}
+
+export default function RecipientNode({ data }: RecipientsNodeProps) {
     return (
         <div className="px-4 py-2 rounded-md bg-white text-black shadow-md border-l-2 border-primary h-auto w-[240px]">
 

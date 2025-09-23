@@ -4,14 +4,11 @@ import { useState } from "react";
 import { Button } from "@/cuteui/components/button/button";
 import { TextField } from "@/cuteui/components/textfield";
 import CustomSelect from "@/cuteui/components/custom-select";
+import { BinaryConditionNodeData } from "@/types";
+import { DATA_PROPERTIES, OPERATORS } from "@/config/data";
 
 interface BinaryConditionFormProps {
-  onSubmit: (data: {
-    conditionName: string;
-    property: string;
-    operator: string;
-    value: string;
-  }) => void;
+  onSubmit: (data: BinaryConditionNodeData) => void;
 }
 
 export default function BinaryConditionForm({ onSubmit }: BinaryConditionFormProps) {
@@ -43,11 +40,7 @@ export default function BinaryConditionForm({ onSubmit }: BinaryConditionFormPro
           labelName="Data Property"
           value={form.property}
           onChange={(e) => setForm({ ...form, property: e.target.value })}
-          options={[
-            { value: "Usertype", label: "Usertype" },
-            { value: "Age", label: "Age" },
-            { value: "Region", label: "Region" },
-          ]}
+          options={DATA_PROPERTIES}
           placeholder="Select property"
           showPlaceholderInMenu
           size="md"
@@ -57,12 +50,7 @@ export default function BinaryConditionForm({ onSubmit }: BinaryConditionFormPro
           labelName="Operator"
           value={form.operator}
           onChange={(e) => setForm({ ...form, operator: e.target.value })}
-          options={[
-            { value: "==", label: "Is equal to" },
-            { value: "!=", label: "Is not equal to" },
-            { value: ">", label: "Greater than" },
-            { value: "<", label: "Less than" },
-          ]}
+          options={OPERATORS}
           placeholder="Select operator"
           showPlaceholderInMenu
           size="md"

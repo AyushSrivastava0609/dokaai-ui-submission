@@ -4,12 +4,11 @@ import { useState } from "react";
 import { TextField } from "@/cuteui/components/textfield";
 import CustomSelect from "@/cuteui/components/custom-select";
 import { Button } from "@/cuteui/components/button/button";
+import { MultipleConditionNodeData } from "@/types";
+import { OPERATORS, REGION_PROPERTIES } from "@/config/data";
 
 interface MultipleConditionFormProps {
-    onSubmit: (data: {
-        conditionName: string;
-        rules: { id: string; property: string; operator: string; value: string }[];
-    }) => void;
+    onSubmit: (data: MultipleConditionNodeData) => void;
 }
 
 export default function MultipleConditionForm({ onSubmit }: MultipleConditionFormProps) {
@@ -59,10 +58,7 @@ export default function MultipleConditionForm({ onSubmit }: MultipleConditionFor
                             labelName="Property"
                             value={rule.property}
                             onChange={(e) => updateRule(rule.id, "property", e.target.value)}
-                            options={[
-                                { value: "Region", label: "Region" },
-                                { value: "Usertype", label: "Usertype" },
-                            ]}
+                            options={REGION_PROPERTIES}
                             placeholder="Select property"
                             showPlaceholderInMenu
                             size="md"
@@ -72,10 +68,7 @@ export default function MultipleConditionForm({ onSubmit }: MultipleConditionFor
                             labelName="Operator"
                             value={rule.operator}
                             onChange={(e) => updateRule(rule.id, "operator", e.target.value)}
-                            options={[
-                                { value: "==", label: "Is equal to" },
-                                { value: "!=", label: "Is not equal to" },
-                            ]}
+                            options={OPERATORS}
                             placeholder="Select operator"
                             showPlaceholderInMenu
                             size="md"

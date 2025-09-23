@@ -1,7 +1,7 @@
 "use client";
 
-import WorkflowCanvas from "@/components/workflow/workflowCanvas";
-import WorkflowHeader from "@/components/workflow/workflowHeader";
+import WorkflowCanvas from "@/components/workflow/WorkflowCanvas";
+import WorkflowHeader from "@/components/workflow/WorkflowHeader";
 import { WorkflowProvider } from "@/context/workflowContext";
 
 

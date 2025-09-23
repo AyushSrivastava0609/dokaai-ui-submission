@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import { TextField } from "@/cuteui/components/textfield";
 import CustomSelect from "@/cuteui/components/custom-select";
 import { Button } from "@/cuteui/components/button/button";
+import { DelayNodeData } from "@/types";
+import { TIME_UNITS } from "@/config/data";
 
 interface DelaysNodeFormProps {
-    onSubmit: (data: { delayName: string; duration: string; unit: string }) => void;
+    onSubmit: (data: DelayNodeData) => void;
 }
 
 export default function DelaysNodeForm({ onSubmit }: DelaysNodeFormProps) {
@@ -49,11 +51,7 @@ export default function DelaysNodeForm({ onSubmit }: DelaysNodeFormProps) {
                     labelName="Unit"
                     value={form.unit}
                     onChange={(e) => setForm({ ...form, unit: e.target.value })}
-                    options={[
-                        { value: "minutes", label: "Minutes" },
-                        { value: "hours", label: "Hours" },
-                        { value: "days", label: "Days" },
-                    ]}
+                    options={TIME_UNITS}
                     placeholder="Select unit"
                     showPlaceholderInMenu
                     size="md"

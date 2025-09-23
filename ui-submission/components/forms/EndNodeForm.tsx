@@ -4,8 +4,13 @@ import { useWorkflow } from "@/context/workflowContext";
 import { TextField } from "@/cuteui/components/textfield";
 import { TextArea } from "@/cuteui/components/textarea";
 import { Button } from "@/cuteui/components/button/button";
+import { EndNodeData } from "@/types";
 
-export default function EndNodeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
+interface EndNodeFormProps {
+    onSubmit: (data: EndNodeData) => void;
+  }
+
+export default function EndNodeForm({ onSubmit }: EndNodeFormProps) {
     const [form, setForm] = useState({
         name: "",
         description: ""

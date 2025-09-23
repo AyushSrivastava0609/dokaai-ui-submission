@@ -5,9 +5,11 @@ import { TextField } from "@/cuteui/components/textfield";
 import { TextArea } from "@/cuteui/components/textarea";
 import CustomSelect from "@/cuteui/components/custom-select";
 import { Button } from "@/cuteui/components/button/button";
+import { ChannelNodeData } from "@/types";
+import { CHANNEL_OPTIONS } from "@/config/data";
 
 interface IndividualChannelFormProps {
-  onSubmit: (data: { channelName: string; channelType: string; description?: string }) => void;
+  onSubmit: (data: ChannelNodeData) => void;
 }
 
 export default function IndividualChannelForm({ onSubmit }: IndividualChannelFormProps) {
@@ -41,12 +43,7 @@ export default function IndividualChannelForm({ onSubmit }: IndividualChannelFor
           labelName="Channel Type"
           value={form.channelType}
           onChange={(e) => setForm({ ...form, channelType: e.target.value })}
-          options={[
-            { value: "Email", label: "Email" },
-            { value: "SMS", label: "SMS" },
-            { value: "Push", label: "Push" },
-            { value: "In-App", label: "In-App" },
-          ]}
+          options={CHANNEL_OPTIONS}
           placeholder="Select Channel Type"
           showPlaceholderInMenu
           size="md"

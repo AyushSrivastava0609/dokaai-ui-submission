@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import { TextField } from "@/cuteui/components/textfield";
 import CustomSelect from "@/cuteui/components/custom-select";
 import { Button } from "@/cuteui/components/button/button";
+import { DigestNodeData } from "@/types";
+import { FREQUENCIES } from "@/config/data";
 
 interface DigestNodeFormProps {
-    onSubmit: (data: { digestName: string; frequency: string; time: string }) => void;
+    onSubmit: (data: DigestNodeData) => void;
 }
 
 export default function DigestNodeForm({ onSubmit }: DigestNodeFormProps) {
@@ -39,11 +41,7 @@ export default function DigestNodeForm({ onSubmit }: DigestNodeFormProps) {
                     labelName="Frequency"
                     value={form.frequency}
                     onChange={(e) => setForm({ ...form, frequency: e.target.value })}
-                    options={[
-                        { value: "daily", label: "Daily" },
-                        { value: "weekly", label: "Weekly" },
-                        { value: "monthly", label: "Monthly" },
-                    ]}
+                    options={FREQUENCIES}
                     placeholder="Select frequency"
                     showPlaceholderInMenu
                     size="md"

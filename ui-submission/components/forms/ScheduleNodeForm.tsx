@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import { TextField } from "@/cuteui/components/textfield";
 import CustomSelect from "@/cuteui/components/custom-select";
 import { Button } from "@/cuteui/components/button/button";
+import { ScheduleNodeData } from "@/types";
+import { FREQUENCIES } from "@/config/data";
 
 interface ScheduleNodeFormProps {
-    onSubmit: (data: { scheduleName: string; date: string; time: string; repeat: string }) => void;
+    onSubmit: (data: ScheduleNodeData) => void;
 }
 
 export default function ScheduleNodeForm({ onSubmit }: ScheduleNodeFormProps) {
@@ -58,12 +60,7 @@ export default function ScheduleNodeForm({ onSubmit }: ScheduleNodeFormProps) {
                     labelName="Repeat"
                     value={form.repeat}
                     onChange={(e) => setForm({ ...form, repeat: e.target.value })}
-                    options={[
-                        { value: "none", label: "None" },
-                        { value: "daily", label: "Daily" },
-                        { value: "weekly", label: "Weekly" },
-                        { value: "monthly", label: "Monthly" },
-                    ]}
+                    options={FREQUENCIES}
                     placeholder="Select repeat"
                     showPlaceholderInMenu
                     size="md"

@@ -1,8 +1,13 @@
 "use client";
 import { Handle, Position } from "reactflow";
 import { Mail, Zap } from "lucide-react"; // Assuming you're using lucide-react for icons
+import { StartNodeData } from "@/types";
 
-export default function StartNode({ data }: any) {
+interface StartNodeProps {
+    data: StartNodeData
+}
+
+export default function StartNode({ data }: StartNodeProps) {
     return (
         <div className="px-4 py-2 rounded-md bg-white text-black shadow-md border-l-2 border-primary h-auto w-[240px]">
 

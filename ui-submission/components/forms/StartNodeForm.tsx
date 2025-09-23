@@ -5,8 +5,14 @@ import { TextField } from "@/cuteui/components/textfield";
 import { TextArea } from "@/cuteui/components/textarea";
 import CustomSelect from "@/cuteui/components/custom-select";
 import { Button } from "@/cuteui/components/button/button";
+import { StartNodeData } from "@/types";
+import { NOTIFICATION_TYPE, TAGS } from "@/config/data";
 
-export default function StartNodeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
+interface StartNodeFormProps {
+    onSubmit: (data: StartNodeData) => void;
+  }
+
+export default function StartNodeForm({ onSubmit }: StartNodeFormProps) {
     const [form, setForm] = useState({
         name: "",
         description: "",
@@ -45,11 +51,7 @@ export default function StartNodeForm({ onSubmit }: { onSubmit: (data: any) => v
                     labelName="Tag"
                     value={form.tag}
                     onChange={(e) => setForm({ ...form, tag: e.target.value })}
-                    options={[
-                        { value: 'Marketing', label: 'Marketing' },
-                        { value: 'Sales', label: 'Sales' },
-                        { value: 'Design', label: 'Design' },
-                    ]}
+                    options={TAGS}
                     placeholder="Tag"
                     showPlaceholderInMenu
                     size="md"
@@ -59,11 +61,7 @@ export default function StartNodeForm({ onSubmit }: { onSubmit: (data: any) => v
                     labelName="Notification Type"
                     value={form.notificationType}
                     onChange={(e) => setForm({ ...form, notificationType: e.target.value })}
-                    options={[
-                        { value: 'Email', label: 'Email' },
-                        { value: 'SMS', label: 'SMS' },
-                        { value: 'Push', label: 'Push Notification' },
-                    ]}
+                    options={NOTIFICATION_TYPE}
                     placeholder="Notification Type"
                     showPlaceholderInMenu
                     size="md"

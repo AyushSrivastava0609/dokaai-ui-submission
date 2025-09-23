@@ -1,11 +1,17 @@
 "use client";
+import { AUDIENCE, CUSTOMER_POOL, RECIPIENT_RADIO } from "@/config/data";
 import { Button } from "@/cuteui/components/button/button";
 import CustomSelect from "@/cuteui/components/custom-select";
 import SearchDropdown from "@/cuteui/components/dropDownSearch";
 import { RadioButton } from "@/cuteui/components/radio";
+import { RecipientNodeData } from "@/types";
 import { useState } from "react";
 
-export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
+interface RecipientFormProps {
+    onSubmit: (data: RecipientNodeData) => void;
+}
+
+export default function RecipientNodeForm({ onSubmit }: RecipientFormProps) {
     const [form, setForm] = useState({
         customerPool: "Instagram",
         selectionType: "Cohorts",
@@ -26,11 +32,7 @@ export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) 
                         labelName="Customer Pool"
                         value={form.customerPool}
                         onChange={(e) => setForm({ ...form, customerPool: e.target.value })}
-                        options={[
-                            { value: 'Instagram', label: 'Instagram' },
-                            { value: 'Facebook', label: 'Facebook' },
-                            { value: 'Twitter', label: 'Twitter' },
-                        ]}
+                        options={CUSTOMER_POOL}
                         placeholder="Customer Pool"
                         showPlaceholderInMenu
                         size="md"
@@ -41,11 +43,7 @@ export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) 
                     <RadioButton
                         label="Selection Type"
                         name="selectionType"
-                        options={[
-                            { value: "Cohorts", label: "Cohorts" },
-                            { value: "Target Audience", label: "Target Audience" },
-                            { value: "Payload based", label: "Payload based" },
-                        ]}
+                        options={RECIPIENT_RADIO}
                         value={form.selectionType}
                         onChange={(_, value) => setForm({ ...form, selectionType: value })}
                     />
@@ -56,13 +54,7 @@ export default function RecipientNodeForm({ onSubmit }: { onSubmit: (data: any) 
                     <label className="block text-sm font-medium text-gray-700">Target Audience</label>
                     <div className="relative mt-2">
                         <SearchDropdown
-                            list={[
-                                "Students",
-                                "Working Professionals",
-                                "Founders",
-                                "Freelancers",
-                                "Enterprises",
-                            ]}
+                            list={AUDIENCE}
                             setSelectedItem={(item) => setForm({ ...form, targetAudience: item })}
                             dropdownTitle={form.targetAudience || "Select Audience"}
                             isSearchEnabled={true}

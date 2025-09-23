@@ -1,7 +1,13 @@
 "use client";
 import { Handle, Position } from "reactflow";
 import { CircleDot } from "lucide-react";
-export default function EndNode({ data }: any) {
+import { EndNodeData } from "@/types";
+
+interface EndNodeProps {
+    data: EndNodeData
+}
+
+export default function EndNode({ data }: EndNodeProps) {
     return (
         <div className="px-4 py-2 rounded-md bg-white text-black shadow-md border-l-2 border-primary h-auto w-[240px]">
 

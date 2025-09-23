@@ -2,13 +2,10 @@
 
 import { Handle, Position } from "reactflow";
 import { Clock } from "lucide-react";
+import { DelayNodeData } from "@/types";
 
 interface DelaysNodeProps {
-    data: {
-        delayName: string;
-        duration: string;
-        unit: string;
-    };
+    data: DelayNodeData
 }
 
 export default function DelaysNode({ data }: DelaysNodeProps) {

@@ -2,13 +2,10 @@
 
 import { Handle, Position } from "reactflow";
 import { Inbox } from "lucide-react";
+import { DigestNodeData } from "@/types";
 
 interface DigestNodeProps {
-    data: {
-        digestName: string;
-        frequency: string;
-        time: string;
-    };
+    data: DigestNodeData
 }
 
 export default function DigestNode({ data }: DigestNodeProps) {

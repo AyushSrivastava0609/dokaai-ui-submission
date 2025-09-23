@@ -2,12 +2,10 @@
 
 import { Handle, Position } from "reactflow";
 import { GitMerge } from "lucide-react";
+import { MultipleConditionNodeData } from "@/types";
 
 interface MultipleConditionNodeProps {
-    data: {
-        conditionName: string;
-        rules: { id: string; property: string; operator: string; value: string }[];
-    };
+    data: MultipleConditionNodeData
 }
 
 export default function MultipleConditionNode({ data }: MultipleConditionNodeProps) {

@@ -2,13 +2,10 @@
 
 import { Handle, Position } from "reactflow";
 import { Users } from "lucide-react";
+import { ChannelNodeData } from "@/types";
 
 interface IndividualChannelNodeProps {
-    data: {
-        channelName: string;
-        channelType: string;
-        description?: string;
-    };
+    data: ChannelNodeData
 }
 
 export default function IndividualChannelNode({ data }: IndividualChannelNodeProps) {

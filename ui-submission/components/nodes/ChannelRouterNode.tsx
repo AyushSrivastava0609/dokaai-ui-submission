@@ -2,12 +2,10 @@
 
 import { Handle, Position } from "reactflow";
 import { Mail } from "lucide-react";
+import { ChannelRouterNodeData } from "@/types";
 
 interface ChannelRouterNodeProps {
-    data: {
-        routerName: string;
-        channels: string[];
-    };
+    data: ChannelRouterNodeData
 }
 
 export default function ChannelRouterNode({ data }: ChannelRouterNodeProps) {

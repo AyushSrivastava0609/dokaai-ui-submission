@@ -4,9 +4,12 @@ import React, { useState } from "react";
 import { CuteCheckbox } from "@/cuteui/components/checkbox";
 import { Button } from "@/cuteui/components/button/button";
 import { TextField } from "@/cuteui/components/textfield";
+import { ChannelRouterNodeData } from "@/types";
+import { CHANNEL_OPTIONS } from "@/config/data";
 
 interface ChannelRouterFormProps {
-  onSubmit: (data: { routerName: string; channels: string[] }) => void;
+  onSubmit: (data: ChannelRouterNodeData)
+   => void;
 }
 
 export default function ChannelRouterForm({ onSubmit }: ChannelRouterFormProps) {
@@ -44,7 +47,7 @@ export default function ChannelRouterForm({ onSubmit }: ChannelRouterFormProps) 
 
         <div className="flex flex-col gap-2">
           <span className="text-sm">Select Channels</span>
-          {["Email", "SMS", "Push", "In-App"].map((ch) => (
+          {CHANNEL_OPTIONS.map((ch) => (
             <label key={ch} className="flex items-center gap-2 text-sm">
               <CuteCheckbox
                 checked={form.channels.includes(ch)}

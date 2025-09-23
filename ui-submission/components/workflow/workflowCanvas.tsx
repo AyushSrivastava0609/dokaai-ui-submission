@@ -39,9 +39,9 @@ import IndividualChannelForm from "../forms/IndividualChannelNodeForm";
 import EndNodeForm from "../forms/EndNodeForm";
 
 // Utility components
-import NodePalette from "./nodepalette";
-import Sidebar from "./sidebar";
 import { useWorkflow } from "@/context/workflowContext";
+import NodePalette from "./NodePalette";
+import Sidebar from "./Sidebar";
 
 // Map node type → ReactFlow node component
 const nodeTypes = {

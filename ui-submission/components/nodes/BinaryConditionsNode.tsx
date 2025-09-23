@@ -2,14 +2,10 @@
 
 import { Handle, Position } from "reactflow";
 import { GitBranch } from "lucide-react";
+import { BinaryConditionNodeData } from "@/types";
 
 interface BinaryConditionNodeProps {
-    data: {
-        conditionName: string;
-        property: string;
-        operator: string;
-        value: string;
-    };
+    data: BinaryConditionNodeData
 }
 
 export default function BinaryConditionNode({ data }: BinaryConditionNodeProps) {

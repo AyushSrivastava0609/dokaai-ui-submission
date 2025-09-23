@@ -11,8 +11,8 @@ import {
   Mail,
   Users,
 } from "lucide-react";
-import NodePaletteItem from "./nodePaletteItem";
 import { useWorkflow } from "@/context/workflowContext";
+import NodePaletteItem from "./NodePaletteItem";
 
 const nodes = [
   { icon: Database, label: "Recipients", type: "recipientNode" },
