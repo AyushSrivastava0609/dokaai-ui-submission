@@ -16,11 +16,8 @@ export default function EndNodeForm({ onSubmit }: EndNodeFormProps) {
         description: ""
     });
 
-    const { setWorkflowName } = useWorkflow();
-
     const handleSave = () => {
         if (!form.name.trim()) return;
-        setWorkflowName(form.name);
         onSubmit(form);
     };
 
